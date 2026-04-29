@@ -7,20 +7,15 @@ admin.site.register(Manufacturer)
 
 @admin.register(Driver)
 class DriverAdmin(UserAdmin):
-    # Добавляем license_number в список отображения
-    list_display = ("license_number",)
+    list_display = UserAdmin.list_display + ("license_number",)
     
-    # Редактирование существующего пользователя
-    fieldsets = (
+    fieldsets = UserAdmin.fieldsets + (
+        ("Additional info", {"fields": ("license_number",)}),
+    )
+    add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ("license_number",)}),
     )
 
-    # Создание нового пользователя
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        ("Additional info", {
-            "fields": ("license_number",)
-        }),
-    )
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
